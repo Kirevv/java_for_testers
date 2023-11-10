@@ -2,20 +2,21 @@ import java.io.File;
 
 public class hello {
     public static void main(String[] args) {
+        int z = calculate();
+        System.out.println(z);
         System.out.println("Hello, world!");
 
-        var configFile = new File("sandbox/build.gradle");
-        System.out.println(configFile.getAbsoluteFile());
-        System.out.println(configFile.exists());
+    }
 
+    private static int calculate() {
+        var x = 1;
+        var y = 0;
+        int z = divide(x, y);
+        return z;
+    }
 
-        System.out.println(2 + 2);
-        System.out.println(2 * 2);
-        System.out.println(2 - 2);
-        System.out.println(2 / 2);
-        System.out.println((2 + 2) * 2);
-
-        System.out.println("Hello, " + "world!");
-        System.out.println("2 + 2 = " + (2 + 2));
+    private static int divide(int x, int y) {
+        var z = x / y;
+        return z;
     }
 }

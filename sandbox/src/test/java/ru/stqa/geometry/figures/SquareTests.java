@@ -20,4 +20,14 @@ public class SquareTests {
         double result = p.squarePerimeter();
         Assertions.assertEquals(20., result);
     }
+
+    @Test
+    void cannotCreateSquareWithNegativeSide() {
+        try {
+            new Square(-5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
+    }
 }

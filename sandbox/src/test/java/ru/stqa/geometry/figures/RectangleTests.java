@@ -10,4 +10,14 @@ public class RectangleTests {
         double result = s.rectangleArea();
         Assertions.assertEquals(16, result);
     }
+
+    @Test
+    void cannotCreateRectangleWithNegativeSide() {
+        try {
+            new Rectangle(-5.0, 4.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
+    }
 }
