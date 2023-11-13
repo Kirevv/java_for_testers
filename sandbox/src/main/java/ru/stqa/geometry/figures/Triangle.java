@@ -30,8 +30,7 @@ public record Triangle (double side1, double side2, double side3) {
     }
 
     public double area() {
-        var p = (this.side1 + this.side2 + this.side3) / 2;
-        return sqrt(p * (p - this.side1) * (p - this.side2) * (p - this.side3));
+        return sqrt(perimeter()/2 * (perimeter()/2 - this.side1) * (perimeter()/2 - this.side2) * (perimeter()/2 - this.side3));
     }
 
     @Override
