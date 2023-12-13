@@ -25,6 +25,13 @@ public class ContactHelper extends HelperBase {
         approveDeletion();
     }
 
+    public void modifyContact(ContactData modifiedContact) {
+        initContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToHomePage();
+    }
+
     private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstname());
         type(By.name("middlename"), contact.middlename());
@@ -66,4 +73,15 @@ public class ContactHelper extends HelperBase {
     }
 
 
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    private void initContactModification() {
+        click(By.cssSelector("img[alt=Edit]"));
+    }
+
+    public int getCountContact() {
+        return manager.driver.findElements(By.name("selected[]")).size();
+        }
 }

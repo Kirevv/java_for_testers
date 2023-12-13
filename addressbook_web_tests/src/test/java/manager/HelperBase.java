@@ -3,7 +3,7 @@ package manager;
 import org.openqa.selenium.By;
 
 public class HelperBase {
-    protected final ApplicationManager manager;
+    public final ApplicationManager manager;
 
     public HelperBase(ApplicationManager manager) {
         this.manager = manager;
@@ -18,4 +18,5 @@ public class HelperBase {
     protected void click(By locator) {
         manager.driver.findElement(locator).click();
     }
+
 }
