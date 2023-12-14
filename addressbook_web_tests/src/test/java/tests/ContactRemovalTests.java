@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ContactRemovalTests extends TestBase {
-
     @Test
     public void canRemoveContact() {
         if (app.contacts().getCountContact() == 0) {
@@ -15,6 +14,15 @@ public class ContactRemovalTests extends TestBase {
         app.contacts().removeContact();
         int newContactCount = app.contacts().getCountContact();
         Assertions.assertEquals(contactCount - 1, newContactCount);
+    }
+
+    @Test
+    void canRemoveAllContactsAtOnce() {
+        if (app.contacts().getCountContact() == 0) {
+            app.contacts().createContact(new ContactData("name", "name2", "name3", "nick", "company", "address", "89999999999", "mail@mail.com"));
+        }
+        app.contacts().removeAllContacts();
+        Assertions.assertEquals(0, app.contacts().getCountContact());
     }
 
 }

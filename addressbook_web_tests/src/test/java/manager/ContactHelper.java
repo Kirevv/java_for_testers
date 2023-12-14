@@ -8,10 +8,6 @@ public class ContactHelper extends HelperBase {
         super(manager);
     }
 
-    public boolean isContactPresent() {
-        return manager.isElementPresent(By.name("selected[]"));
-    }
-
     public void createContact(ContactData contact) {
         initContactCreation();
         fillContactForm(contact);
@@ -22,14 +18,21 @@ public class ContactHelper extends HelperBase {
     public void removeContact() {
         selectContact();
         removeSelectedContact();
-        approveDeletion();
+        returnToHomePage2();
     }
+
 
     public void modifyContact(ContactData modifiedContact) {
         initContactModification();
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToHomePage();
+    }
+
+    public void removeAllContacts() {
+        selectAllContacts();
+        removeSelectedContact();
+        returnToHomePage2();
     }
 
     private void fillContactForm(ContactData contact) {
@@ -81,7 +84,18 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector("img[alt=Edit]"));
     }
 
+    private void returnToHomePage2() {
+        click(By.linkText("home"));
+    }
+
     public int getCountContact() {
         return manager.driver.findElements(By.name("selected[]")).size();
         }
+
+    public void selectAllContacts() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
 }
