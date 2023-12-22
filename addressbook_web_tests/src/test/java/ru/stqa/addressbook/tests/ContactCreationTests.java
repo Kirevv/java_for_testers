@@ -86,4 +86,31 @@ public class ContactCreationTests extends TestBase {
         var newContacts = app.contacts().getList();
         Assertions.assertEquals(newContacts, oldContacts);
     }
+
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    public void canCreateContactInGroup(ContactData contact){
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        var group = app.hbm().getGroupList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().createContact(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.add(new ContactData()
+                .withId(newRelated.get(newRelated.size()-1).id())
+                .withFirstname(newRelated.get(newRelated.size()-1).firstname())
+                .withLastname(newRelated.get(newRelated.size()-1).lastname())
+                .withAddress(newRelated.get(newRelated.size()-1).address())
+                .withMobile(newRelated.get(newRelated.size()-1).mobile()));
+        expectedList.sort(compareById);
+        oldRelated.sort(compareById);
+        Assertions.assertEquals(expectedList, newRelated);
+    }
+
 }
