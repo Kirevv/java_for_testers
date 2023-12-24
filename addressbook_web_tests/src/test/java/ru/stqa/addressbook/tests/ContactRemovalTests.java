@@ -26,12 +26,12 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveContactFromGroup(){
-            if (app.hbm().getGroupCount() == 0) {
-                app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
-            }
-            if(app.hbm().getContactCount() == 0){
-                app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email"));
-            };
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        if (app.hbm().getContactCount() == 0){
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email"));
+        };
         var rnd = new Random();
         var indexForGroup = rnd.nextInt(app.hbm().getGroupList().size());
         if (app.hbm().getContactsInGroup(app.hbm().getGroupList().get(indexForGroup)).isEmpty()){

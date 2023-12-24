@@ -126,13 +126,12 @@ public class ContactCreationTests extends TestBase {
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
-        var rnd = new Random();
-        var group = app.hbm().getGroupList().get(rnd.nextInt(app.hbm().getGroupList().size()));
+        var group = app.hbm().getGroupList().get(0);
         var contacts = app.hbm().getContactsNotInGroup();
-        if (contacts.size() == 0){
+        if (contacts.isEmpty()){
             app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email"));
         }
-        var contact = app.hbm().getContactsNotInGroup().get(rnd.nextInt(app.hbm().getContactsNotInGroup().size()));
+        var contact = app.hbm().getContactsNotInGroup().get(0);
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.contacts().addContactInGroup(contact,group);
         var newRelated = app.hbm().getContactsInGroup(group);
