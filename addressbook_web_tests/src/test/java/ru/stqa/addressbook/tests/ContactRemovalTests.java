@@ -41,7 +41,7 @@ public class ContactRemovalTests extends TestBase {
         var group = app.hbm().getGroupList().get(indexForGroup);
         var contact = app.hbm().getContactsInGroup(group).get(indexForContact);
         var oldRelated = app.hbm().getContactsInGroup(group);
-        app.contacts().removeContact(contact, group);
+        app.contacts().removeContactFromGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         var expectedList = new ArrayList<>(oldRelated);
         expectedList.remove(indexForContact);

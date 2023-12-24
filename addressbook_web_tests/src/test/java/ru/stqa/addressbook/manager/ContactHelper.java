@@ -20,11 +20,26 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void createContact(ContactData contact, GroupData group) {
+    public void createContactInGroup(ContactData contact, GroupData group) {
         initContactCreation();
         fillContactForm(contact);
         selectGroup(group);
         submitContactCreation();
+        returnToHomePage();
+    }
+
+    public void addContactInGroup(ContactData contact, GroupData group) {
+        returnToHomePage();
+        selectContact(contact);
+        selectGroupFromHomePage2(group);
+        submitAddContactInGroup();
+    }
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        returnToHomePage();
+        selectGroupFromHomePage1(group);
+        selectContact(contact);
+        removeSelectedContactInGroup();
         returnToHomePage();
     }
 
@@ -81,7 +96,7 @@ public class ContactHelper extends HelperBase {
 
 
     private void selectContact(ContactData contact) {
-        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
+        click(By.cssSelector(String.format("input[id='%s']", contact.id())));
     }
 
 
@@ -124,29 +139,17 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public void addContactInGroup(ContactData contact, GroupData group) {
-        returnToHomePage();
-        selectContact(contact);
-        selectGroup(group);
-        submitAddContactInGroup();
-    }
-
     private void submitAddContactInGroup() {
         click(By.name("add"));
     }
 
-    public void removeContact(ContactData contact, GroupData group) {
-        returnToHomePage();
-        selectGroupFromHomePage(group);
-        selectContact(contact);
-        removeSelectedContactInGroup();
-        returnToHomePage();
-    }
-
-    private void selectGroupFromHomePage(GroupData group) {
+    private void selectGroupFromHomePage1(GroupData group) {
         new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
+    private void selectGroupFromHomePage2(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
 
     private void selectGroup(GroupData group) {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());

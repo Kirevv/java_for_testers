@@ -3,6 +3,7 @@ package ru.stqa.addressbook.tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.addressbook.common.CommonFunctions;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class ContactCreationTests extends TestBase {
 
@@ -99,7 +101,7 @@ public class ContactCreationTests extends TestBase {
         var group = app.hbm().getGroupList().get(0);
 
         var oldRelated = app.hbm().getContactsInGroup(group);
-        app.contacts().createContact(contact, group);
+        app.contacts().createContactInGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         var expectedList = new ArrayList<>(oldRelated);
         expectedList.add(new ContactData()
@@ -112,5 +114,33 @@ public class ContactCreationTests extends TestBase {
         oldRelated.sort(compareById);
         Assertions.assertEquals(expectedList, newRelated);
     }
+
+    @Test
+    public void canAddContactToGroup(){
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+            if(app.hbm().getContactCount() == 0){
+                app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email"));
+            };
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        var rnd = new Random();
+        var group = app.hbm().getGroupList().get(rnd.nextInt(app.hbm().getGroupList().size()));
+        var contacts = app.hbm().getContactsNotInGroup();
+        if (contacts.size() == 0){
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email"));
+        }
+        var contact = app.hbm().getContactsNotInGroup().get(rnd.nextInt(app.hbm().getContactsNotInGroup().size()));
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().addContactInGroup(contact,group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.add(contact);
+        Assertions.assertEquals(newRelated, expectedList);
+
+    }
+
 
 }
