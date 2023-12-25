@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.tests;
 
+import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class GroupModificationTests extends TestBase {
         var oldGroups = app.hbm().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
-        var testData = new GroupData().withName("modified name");
+        var testData = new GroupData().withName(CommonFunctions.randomString(10));
         app.groups().modifyGroup(oldGroups.get(index), testData);
         var newGroups = app.hbm().getGroupList();
         var expectedList = new ArrayList<>(oldGroups);

@@ -16,9 +16,10 @@ public class ContactRecord {
     public String title = "title";
     public String company;
     public String address;
-    public String home = "12345";
+    public String home;
     public String mobile;
-    public String work = "12345";
+    public String work;
+    public String phone2;
     public String fax = "12345";
     public String email;
     public String email2 = "email2";

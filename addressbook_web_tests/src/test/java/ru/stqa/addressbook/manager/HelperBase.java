@@ -1,6 +1,7 @@
 package ru.stqa.addressbook.manager;
 
 import org.openqa.selenium.By;
+import ru.stqa.addressbook.model.ContactData;
 
 public class HelperBase {
     public final ApplicationManager manager;
