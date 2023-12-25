@@ -22,8 +22,9 @@ public class ContactRecord {
     public String phone2;
     public String fax = "12345";
     public String email;
-    public String email2 = "email2";
-    public String email3 = "email3";
+    public String email2;
+    public String email3;
+    public String address2;
     public String homepage = "page";
     @ManyToMany
     @JoinTable(name = "address_in_groups",

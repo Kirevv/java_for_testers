@@ -75,7 +75,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "")));
+                new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "", "", "", "")));
         return result;
     }
 
@@ -121,7 +121,7 @@ public class ContactCreationTests extends TestBase {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
             if(app.hbm().getContactCount() == 0){
-                app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email", "", "", ""));
+                app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email", "", "", "", "", "", ""));
             };
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
@@ -129,7 +129,7 @@ public class ContactCreationTests extends TestBase {
         var group = app.hbm().getGroupList().get(0);
         var contacts = app.hbm().getContactsNotInGroup();
         if (contacts.isEmpty()){
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email", "", "", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "company", "address", "mobile", "email", "", "", "", "", "", ""));
         }
         var contact = app.hbm().getContactsNotInGroup().get(0);
         var oldRelated = app.hbm().getContactsInGroup(group);
